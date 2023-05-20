@@ -1,0 +1,52 @@
+<!--投稿一覧&新規登録用viewファイル-->
+<h1>Books</h1> <!--タイトル-->
+
+<!--投稿一覧表-->
+<!--投稿一覧表示にtableタグを用いる-->
+<table>
+  <!--表見出しの行グループ（ヘッダー）に「thead」を用いる-->
+  <thead>
+    <!--thタグを用いて見出しのセルを表す-->
+    <th>タイトル</th>
+    <th>内容</th>
+    <th></th> <!--空白の見出し用-->
+  </thead>
+  <!--表のデータを構成する値が入っている行グループに「tbody」を用いる-->
+  <tbody>
+  <% @lists.each do |book| %>
+    <!--thタグを用いて見出しのセルを表す-->
+    <tb><%= book.title %></tb>
+    <tb><%= book.body %></tb>
+    <tb><%=link_to "Show", book_path(book.id)%></tb>
+    <tb><%=link_to "Edit", edit_book_path(book.id)%></tb>
+    <tb><%=link_to "Destroy", book_path(book.id), method: :delete, "data-confirm" => "本当に削除しますか？" %></tb>
+  <% end %>
+  </tbody>
+</table>
+
+<!--新規登録用-->
+<h2>New book</h2>
+
+<!-- form_with部分 -->
+<%= form_with model: @books, url: '/books', method: :post do |f| %>
+
+<% if @book.errors.any? %><!--もしエラーが発生してたら-->
+  <!--エラー表示範囲の追加-->
+  <div id="error_explanation">
+    <h2><%= @book.errors.count %>件のエラーが発生しました</h2> <!--件数表示-->
+    <ul>
+      <% @book.errors.full_messages.each do |message| %>
+        <li><%= message %></li> <!--エラーの内容を出力-->
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+  <h4>タイトル</h4>
+  <%= f.text_field :title %>
+
+  <h4>本文</h4>
+  <%= f.text_area :body %>
+
+  <%= f.submit '投稿' %>
+<% end %>
