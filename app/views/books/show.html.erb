@@ -1,19 +1,8 @@
-<!--詳細画面用viewファイル-->
-<% if flash[:notice] %>
-  <p id="notice">
-   <%= flash[:notice] %>
-  </p>
-<% end %>
-
 <h2>タイトル</h2>
-<p><%= @list.title %></p>
+<p><%= @book.title %></p>
 
 <h2>本文</h2>
-<p><%= @list.body %></p>
+<p><%= @book.body %></p>
 
-<h2>画像</h2>
-  <%= image_tag @list.image, size: "300x300" %>
-
-<%= link_to "編集", edit_list_path(@list.id) %>
-<!--data-confirmを用いて削除確認ダイアログも表示されるように設定-->
-<%= link_to "削除", list_path(@list.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+<%= link_to "Edit", edit_book_path(@book.id) %>
+<%= link_to "Back", books_path %>

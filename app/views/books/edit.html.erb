@@ -1,14 +1,29 @@
 <!--編集用viewファイル-->
 <h1>編集画面</h1>
 
-<%= form_with model: @list do |f| %>
-<!--受け取ったインスタンス変数をここでは「f」とする(このView専用の変数にする)-->
+<%= form_with model: @book do |f| %>
+
+<% if @book.errors.any? %><!--もしエラーが発生してたら-->
+  <!--エラー表示範囲の追加-->
+  <div id="error_explanation">
+    <h2><%= @book.errors.count %>error prohibited this book from being saved</h2> <!--件数表示-->
+    <ul>
+      <% @book.errors.full_messages.each do |message| %>
+        <li><%= message %></li> <!--エラーの内容を出力-->
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
   <h4>タイトル</h4>
   <%= f.text_field :title %>
 
   <h4>本文</h4>
   <%= f.text_area :body %>
 
-  <%= f.submit '保存' %>
-
+  <div></div>
+  <%= f.submit 'Update Book' %>
 <% end %>
+
+<%=link_to "Show", book_path(@book.id)%>
+<%= link_to "Back", books_path %>

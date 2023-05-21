@@ -11,6 +11,10 @@
   </head>
 
   <body>
+    <!--フラッシュメッセージ-->
+    <div>
+      <%= flash[:success] %>
+    </div>
     <%= yield %>
   </body>
 </html>
